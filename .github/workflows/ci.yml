@@ -22,7 +22,7 @@ jobs:
         run: |
           git clone https://github.com/bats-core/bats-core
           cd bats-core
-          ./install.sh
+          sudo ./install.sh /usr/local
       - uses: actions/checkout@v2
       - name: Run test
         run: bats test/test.bats
