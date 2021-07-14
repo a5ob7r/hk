@@ -1,0 +1,11 @@
+#!/bin/sh
+# Casual command line history statistics script for bash, zsh and fish.
+sed -E \
+    -e 's/\\\\n/ /g' \
+    -e 's/\\n/ /g' \
+    -e 's/^ *[[:digit:]]*\** +//g' \
+    -e "s/^([[:alpha:]_][[:alnum:]_]*=([[:alnum:]_]*|'.*'|\".*\")([[:alnum:]_]|(\\\ ))* +)*//g" \
+  | cut -d ' ' -f 1 \
+  | sort \
+  | uniq -c \
+  | sort -r -h
