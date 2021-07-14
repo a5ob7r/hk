@@ -37,3 +37,11 @@ $ history 1 | hk
 ```fish
 $ history | hk
 ```
+
+## Test
+
+Use [bats](https://github.com/bats-core/bats-core).
+
+```sh
+$ bats test/test.bats
+```
