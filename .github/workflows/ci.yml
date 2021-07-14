@@ -1,0 +1,28 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run shellcheck
+        run: |
+          sudo apt-get install -y --no-install-recommends shellcheck
+          shellcheck bin/hk
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Install bats
+        run: |
+          git clone https://github.com/bats-core/bats-core
+          cd bats-core
+          ./install.sh
+      - uses: actions/checkout@v2
+      - name: Run test
+        run: bats test/test.bats
