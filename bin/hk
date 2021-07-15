@@ -24,9 +24,12 @@ hk::analyze () {
   local -ri scale=6
   local -i total=0
 
-  mapfile -t entries
+  # NOTE: Wanna use `mapfile` but default bash version on macOS BigSur is so
+  # old and `mapfile` isn't implemented on it. So sad...
+  local -a entries=()
+  while read -r entry; do
+    entries+=("$entry")
 
-  for entry in "${entries[@]}"; do
     read -r -a arr <<<"$entry"
     total+="${arr[0]}"
   done
