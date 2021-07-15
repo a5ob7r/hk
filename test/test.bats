@@ -12,9 +12,13 @@ setup () {
 144847     \\n\nVAR0=foo \n VAR1='fo  o' \\n  VAR2="  fo o \"  "  sudo  -E HOGE=word  HUGE=world  -u root    ls   -ABFohv
 EOS
 
-  [[ "${lines[0]}" == "      2 ls" ]]
-  [[ "${lines[1]}" == "      1 sudo" ]]
+
+
   [[ "$status" == 0 ]]
+  [[ "${lines[0]}" == "       total entry number: 3" ]]
+  [[ "${lines[1]}" == "total unique entry number: 2" ]]
+  [[ "${lines[2]}" == "         2(0.666666) ls" ]]
+  [[ "${lines[3]}" == "         1(0.333333) sudo" ]]
 }
 
 @test 'for fish' {
@@ -24,7 +28,9 @@ ls path
   \\n\nVAR0=foo \n VAR1='fo  o' \\n  VAR2="  fo o \"  "  sudo  -E HOGE=word  HUGE=world  -u root    ls   -ABFohv
 EOS
 
-  [[ "${lines[0]}" == "      2 ls" ]]
-  [[ "${lines[1]}" == "      1 sudo" ]]
   [[ "$status" == 0 ]]
+  [[ "${lines[0]}" == "       total entry number: 3" ]]
+  [[ "${lines[1]}" == "total unique entry number: 2" ]]
+  [[ "${lines[2]}" == "         2(0.666666) ls" ]]
+  [[ "${lines[3]}" == "         1(0.333333) sudo" ]]
 }

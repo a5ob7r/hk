@@ -4,14 +4,18 @@ Casual command line history statistics script for bash, zsh and fish.
 
 ```sh
 $ history | hk
-   6620 vim
-   6285 git
-   6211 exit
-   5417 ls
-   3923 yay
-   3632 sudo
-   3510 cd
-   ...
+       total entry number: 145054
+total unique entry number: 1403
+      6620(0.045638) vim
+      6488(0.044728) docker-compose
+      6290(0.043363) git
+      6211(0.042818) exit
+      5417(0.037344) ls
+      4073(0.028079) haskellorls
+      3923(0.027045) yay
+      3634(0.025052) sudo
+      3373(0.023253) echo
+      ...
 ```
 
 ## Install

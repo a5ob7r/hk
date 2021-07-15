@@ -1,11 +1,51 @@
-#!/bin/sh
+#!/bin/bash
 # Casual command line history statistics script for bash, zsh and fish.
-sed -E \
-    -e 's/\\\\n/ /g' \
-    -e 's/\\n/ /g' \
-    -e 's/^ *[[:digit:]]*\** +//g' \
-    -e "s/^([[:alpha:]_][[:alnum:]_]*=([[:alnum:]_]*|'.*'|\".*\")([[:alnum:]_]|(\\\ ))* +)*//g" \
-  | cut -d ' ' -f 1 \
-  | sort \
-  | uniq -c \
-  | sort -r -h
+
+hk::normalize () {
+  sed -E \
+      -e 's/\\\\n/ /g' \
+      -e 's/\\n/ /g' \
+      -e 's/^ *[[:digit:]]*\** +//g' \
+      -e "s/^([[:alpha:]_][[:alnum:]_]*=([[:alnum:]_]*|'.*'|\".*\")([[:alnum:]_]|(\\\ ))* +)*//g" \
+    | cut -d ' ' -f 1 \
+  ;
+}
+
+hk::countup () {
+  sort \
+    | uniq -c \
+    | sort -r -h \
+  ;
+}
+
+hk::analyze () {
+  local -ri scale=6
+  local -i total=0
+
+  mapfile -t entries
+
+  for entry in "${entries[@]}"; do
+    read -r -a arr <<<"$entry"
+    total+="${arr[0]}"
+  done
+
+  echo "       total entry number: ${total}" >&2
+  echo "total unique entry number: ${#entries[@]}" >&2
+
+  for entry in "${entries[@]}"; do
+    read -r -a arr <<<"$entry"
+
+    local n="${arr[0]}"
+    local cmd="${arr[1]}"
+    local per
+    per=$(bc -l <<<"scale=${scale}; $n / $total")
+
+    # Precision of double is 6 implicitly if missing.
+    printf '%10d(%f) %s\n' "$n" "$per" "$cmd"
+  done
+}
+
+hk::normalize \
+  | hk::countup \
+  | hk::analyze \
+  ;
