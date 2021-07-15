@@ -8,7 +8,8 @@ hk::version () {
 }
 
 hk::help () {
-  echo 'Casual command line history statistics script for bash, zsh and fish.
+  echo "\
+Casual command line history statistics script for bash, zsh and fish.
 
 Input history entries to this.
 $ history | hk # bash, fish
@@ -18,8 +19,7 @@ Usage: hk [-h|--help] [--version]
 
 Avairable options:
   -h, --help      Show this help message.
-  --version       Show version info.
-'
+  --version       Show version info."
 }
 
 hk::normalize () {
@@ -52,8 +52,9 @@ hk::analyze () {
     total+="${arr[0]}"
   done
 
-  echo "       total entry number: ${total}" >&2
-  echo "total unique entry number: ${#entries[@]}" >&2
+  echo "\
+       total entry number: ${total}
+total unique entry number: ${#entries[@]}" >&2
 
   local IFS=$'\n'
   awk -v total="$total" '{ printf "%10d(%f) %s\n", $1, $1/total, $2 }' <<<"${entries[*]}"
