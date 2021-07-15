@@ -40,12 +40,11 @@ hk::countup () {
 }
 
 hk::analyze () {
-  local -ri scale=6
+  local -a entries=()
   local -i total=0
 
   # NOTE: Wanna use `mapfile` but default bash version on macOS BigSur is so
   # old and `mapfile` isn't implemented on it. So sad...
-  local -a entries=()
   while read -r entry; do
     entries+=("$entry")
 
@@ -56,18 +55,8 @@ hk::analyze () {
   echo "       total entry number: ${total}" >&2
   echo "total unique entry number: ${#entries[@]}" >&2
 
-  for entry in "${entries[@]}"; do
-    read -r -a arr <<<"$entry"
-
-    local n="${arr[0]}"
-    # Maybe empty command entry exists.
-    local cmd="${arr[1]-}"
-    local per
-    per=$(bc -l <<<"scale=${scale}; $n / $total")
-
-    # Precision of double is 6 implicitly if missing.
-    printf '%10d(%f) %s\n' "$n" "$per" "$cmd"
-  done
+  local IFS=$'\n'
+  awk -v total="$total" '{ printf "%10d(%f) %s\n", $1, $1/total, $2 }' <<<"${entries[*]}"
 }
 
 # Main

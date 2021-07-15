@@ -17,7 +17,7 @@ EOS
   [[ "$status" == 0 ]]
   [[ "${lines[0]}" == "       total entry number: 3" ]]
   [[ "${lines[1]}" == "total unique entry number: 2" ]]
-  [[ "${lines[2]}" == "         2(0.666666) ls" ]]
+  [[ "${lines[2]}" == "         2(0.666667) ls" ]]
   [[ "${lines[3]}" == "         1(0.333333) sudo" ]]
 }
 
@@ -31,6 +31,6 @@ EOS
   [[ "$status" == 0 ]]
   [[ "${lines[0]}" == "       total entry number: 3" ]]
   [[ "${lines[1]}" == "total unique entry number: 2" ]]
-  [[ "${lines[2]}" == "         2(0.666666) ls" ]]
+  [[ "${lines[2]}" == "         2(0.666667) ls" ]]
   [[ "${lines[3]}" == "         1(0.333333) sudo" ]]
 }
