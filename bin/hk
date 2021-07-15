@@ -38,7 +38,8 @@ hk::analyze () {
     read -r -a arr <<<"$entry"
 
     local n="${arr[0]}"
-    local cmd="${arr[1]}"
+    # Maybe empty command entry exists.
+    local cmd="${arr[1]-}"
     local per
     per=$(bc -l <<<"scale=${scale}; $n / $total")
 
