@@ -8,18 +8,18 @@ hk::version () {
 }
 
 hk::help () {
-  echo "\
-Casual command line history statistics script for bash, zsh and fish.
+  echo -n "\
+Descriptions:
+  Casual command line history statistics script for bash, zsh and fish.
 
-Input history entries to this.
-$ history | hk # bash, fish
-$ history 1 | hk # zsh
+Usage:
+  history | hk # bash, fish
+  history 1 | hk # zsh
 
-Usage: hk [-h|--help] [--version]
-
-Avairable options:
-  -h, --help      Show this help message.
-  --version       Show version info."
+Options:
+  -h, --help      Show this help message and exit.
+  --version       Show version info and exit.
+"
 }
 
 hk::normalize () {
