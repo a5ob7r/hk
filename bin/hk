@@ -62,7 +62,7 @@ total unique entry number: ${#entries[@]}" >&2
 
 # Main
 
-while [[ $# != 0 ]]; do
+while (( $# )); do
   case "$1" in
     -h | --help )
       hk::help
